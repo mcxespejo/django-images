@@ -160,7 +160,7 @@ from decouple import config
 
 SECRET_KEY = config('SECRET_KEY')
 DEBUG = config('DEBUG', default=False, cast=bool)
-USER = config('pip install dj-database-url')
+USER = config('USER')
 EMAIL = config('EMAIL')
 
 import dj_database_url
