@@ -56,6 +56,13 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'core.urls'
 
+STORAGES = {
+    # ...
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -171,3 +178,11 @@ import dj_database_url
 DATABASES = {
 'default': dj_database_url.parse(os.environ.get('DATABASE_URL'), conn_max_age=600),
 }
+
+from whitenoise import WhiteNoise
+
+from core import MyWSGIApp
+
+application = MyWSGIApp()
+application = WhiteNoise(application, root="/path/to/static/files")
+application.add_files("/path/to/more/static/files", prefix="more-files/")
